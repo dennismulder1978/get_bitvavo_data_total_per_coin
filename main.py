@@ -1,16 +1,17 @@
-# This is a sample Python script.
+from func import *
+import pandas as pd
+import numpy as np
+from datetime import datetime
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+'''
+Save per coin all candle-data per time-point, 2 years of hourly coin-market prices per coin. 
+'''
 
+coin_list = ['BTC', 'ETH']  # ['BTC', 'ETH', 'SOL', 'ADA', 'MATIC', 'AVAX', 'SAND']
+coin_price_lst = np.array([price_list(each) for each in coin_list])
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
-
-
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+# safe to file
+for each in coin_list:
+    name = 'CoinPriceData_' + each + '_' + datetime.now().strftime('%d-%m-%Y_%H.%M.%S') + '.csv'
+    # pd.DataFrame.from_records(coin_price_lst, index=coin_list).T.to_csv(name)
+    print(pd.DataFrame.from_records(coin_price_lst, index=coin_list).T.head())
